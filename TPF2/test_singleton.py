@@ -5,7 +5,6 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-# Test Singleton behavior
 data_instance_1 = CorporateData()
 data_instance_2 = CorporateData()
 assert data_instance_1 is data_instance_2
@@ -18,10 +17,10 @@ assert log_instance_1 is log_instance_2
 session_uuid = str(uuid.uuid4())
 cpu_uuid = str(uuid.getnode())
 
-data = data_instance_1.getData(session_uuid, cpu_uuid, "2")
+data = data_instance_1.getData(session_uuid, cpu_uuid, "1")
 logging.info(f"Datos obtenidos: {data}")
 
-cuit = data_instance_1.getCUIT(session_uuid, cpu_uuid, "1")
+cuit = data_instance_1.getCUIT(session_uuid, cpu_uuid, "2")
 logging.info(f"CUIT obtenido: {cuit}")
 
 seq_id = data_instance_1.getSeqID(session_uuid, cpu_uuid)
