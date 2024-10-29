@@ -27,13 +27,13 @@ class CorporateData:
         data = self.getData(session_uuid, cpu_uuid, sede_id)
         return {"CUIT": data.get("CUIT", "No CUIT found")} if "error" not in data else data
 
-    def getSeqID(self, session_uuid, cpu_uuid):
+    def getSeqID(self, session_uuid, cpu_uuid, identificador):
         try:
-            response = self.table.get_item(Key={'identificador': 'sequence'})
+            response = self.table.get_item(Key={'identificador': identificador})
             if 'Item' in response:
                 seq_id = response['Item']['idSeq'] + 1
                 self.table.update_item(
-                    Key={'identificador': 'sequence'},
+                    Key={'identificador': identificador},
                     UpdateExpression='SET idSeq = :val',
                     ExpressionAttributeValues={':val': seq_id}
                 )
@@ -42,6 +42,7 @@ class CorporateData:
                 return {"error": "Sequence ID not found"}
         except ClientError as e:
             return {"error": str(e)}
+
 
     def listCorporateData(self):
         try:
